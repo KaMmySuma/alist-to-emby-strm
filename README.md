@@ -31,7 +31,8 @@ Emby的strm文件应用参考：https://emby.media/support/articles/Strm-Files.h
 填好开头几行变量即可。
 ```py
 save_path = r'your_path'  # 要同步到到的本地路径目录
-webdav_url = r"http://your_ip:port/dav/path/"  # 要同步到的网盘路径目录，端口号后需要添加/dav/，问就是规则
+webdav_url = r"http://your_ip:port/dav/path/"  # 要同步到的网盘路径目录
+emby_url = r"http://localhost:8096"  # emby链接和端口
 username = 'your_username'
 password = 'your_password'
 api_key = 'your_api_key'
