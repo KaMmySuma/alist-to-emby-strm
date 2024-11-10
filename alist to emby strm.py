@@ -166,18 +166,27 @@ def list_files(webdav_url_, username_, password_, current_path):
                             traceback.print_exc()
                             break
             elif os.path.splitext(file)[1].lower() in ['.ass', '.srt', '.ssa', '.sub', '.idx', '.vtt', '.dfxp', '.xml', '.sbv', '.mpl2', '.lrc', '.txt']:
-                # 如果是字幕，则下载到本地
-                url = webdav_url_.replace('/dav/', '/d/') + file
-                response = requests.get(url)
+                # 如果是字幕，且本地不存在，则下载到本地
                 if not os.path.exists(current_path + file):
-                    print(f"下载字幕：{current_path + file}")
-                    os.makedirs(os.path.dirname(current_path + file), exist_ok=True)
-                    with open(current_path + file, 'wb') as fl:
-                        fl.write(response.content)
-                else:
-                    print(f"更新字幕：{current_path + file}")
-                    with open(current_path + file, 'wb') as fl:
-                        fl.write(response.content)
+                    url = webdav_url_.replace('/dav/', '/d/') + file
+                    response = requests.get(url)
+                    print(f"{GREEN}下载字幕：{current_path + file}{RESET}")
+                    n = 1
+                    while True:
+                        try:
+                            os.makedirs(os.path.dirname(current_path + file), exist_ok=True)
+                            with open(current_path + file, 'wb') as fl:
+                                fl.write(response.content)
+                            break
+                        except PermissionError:
+                            print(f"写入字幕——{RED}文件{current_path + file}被占用,等待 2 秒后进行第 {n} 次重试{RESET}")
+                            time.sleep(2)
+                            n += 1
+                        except Exception as err:
+                            print("意料之外的错误：", err)
+                            # 输出详细的异常信息（堆栈跟踪）
+                            traceback.print_exc()
+                            break
     return folder_list_, file_list_
 
 
