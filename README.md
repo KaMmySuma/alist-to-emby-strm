@@ -28,6 +28,9 @@ Emby的strm文件应用参考：https://emby.media/support/articles/Strm-Files.h
 - 循环等待。因为emby实时监控本地文件，经常占用文件，遇到占用时进行循环等待占用结束。
 
 # 三、使用
+创建emby应用api，在alist全局设置里关闭签名。  
+创建用于标记的两个合集，并记录id。  
+
 填好开头几行变量即可。
 ```py
 save_path = r'your_path'  # 要同步到到的本地路径目录
@@ -40,4 +43,11 @@ temp_collection = 114514  # 【待转】合集id
 strm_collection = 191981  # 【strm文件】合集id
 ```
 
+# 四、效果
+### 运行效果
+![](https://github.com/KaMmySuma/alist-to-emby-strm/blob/main/%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C.png)
+### alist目录
+![](https://github.com/KaMmySuma/alist-to-emby-strm/blob/main/alist%E7%9B%AE%E5%BD%95.png)
+### 本地目录
+![](https://github.com/KaMmySuma/alist-to-emby-strm/blob/main/%E6%9C%AC%E5%9C%B0%E7%9B%AE%E5%BD%95.png)
 
